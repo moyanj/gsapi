@@ -1,0 +1,28 @@
+{
+  "host": "0.0.0.0",
+  "port": 6400,
+  "CDN":"X-Forwarded-FOR",
+  "index":"https://mo-genstar.apifox.cn/",
+  "git":"https://git.moyanjdc.top/MoYan/gsapi",
+  "log": {
+    "level":"DEBUG",
+    "dir":"log/"
+  },
+  "cookie":{
+    "key":"潘畑岑是SB",
+    "dir":"ck/"
+  },
+  "cache":{
+    "dir":"cache/"
+  },
+  "chat":{
+    "token":"~",
+    "bot":"mo-paimon",
+    "max":"8192"
+  },
+  "bos":{
+    "AK":"499e556c82e7445e9998bdfbcb992080",
+    "SK":"1db1f71de7c74bfd9b8b7e12ae85563e"
+  }
+
+}

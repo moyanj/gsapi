@@ -1,0 +1,9 @@
+*.pyc
+repli.nix
+poetry.lock
+pyproject.toml
+venv/
+.upm/
+replit_zip_error_log.txt
+.cache
+.config
