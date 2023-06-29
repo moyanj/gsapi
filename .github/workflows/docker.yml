@@ -1,0 +1,22 @@
+name: Package Docker image
+
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      
+jobs:
+  build:
+    name: Package Docker image
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+        uses: actions/checkout@v2
+    - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: moyanjdc/gsapi:${{ github.ref }}
