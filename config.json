@@ -1,7 +1,7 @@
 {
   "host": "0.0.0.0",
   "port": 6475,
-  "CDN":"X-Forwarded-FOR",
+  "CDN":"",
   "index":"https://mo-genstar.apifox.cn/",
   "git":"https://git.moyanjdc.top/MoYan/gsapi",
   "log": {
