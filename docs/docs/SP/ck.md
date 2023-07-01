@@ -1,0 +1,1 @@
+# GSAPI Cookie管理器
