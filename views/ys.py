@@ -1,6 +1,28 @@
 from flask import Flask, Blueprint, request
-from lib import viewFun
+from fun import viewFun
 app = Blueprint('ys', __name__, url_prefix='/ys')
+
+@app.route("/all")
+def all():
+    allData = viewFun(request)["data"]
+    tmp2 = allData["playerInfo"]
+    floor = tmp2["towerFloorIndex"]
+    room = tmp2["towerLevelIndex"]
+    abyss_str = "{}-{}".format(floor, room)
+
+    returnData = {
+        "nickName":allData["playerInfo"]["nickname"],
+        "level":allData["playerInfo"]["level"],
+        "WL":allData["playerInfo"]["worldLevel"],
+        "sign":allData["playerInfo"]["signature"],
+        "NOA":allData["playerInfo"]["finishAchievementNum"],
+        "abyss":{
+            "string":abyss_str,
+            "floor":floor,
+            "room":room
+        }
+    }
+    return returnData
 #获取玩家昵称
 @app.route("/name")
 def uid():
@@ -54,6 +76,7 @@ def abyss():
     return tmp0["data"], tmp0["status"], tmp0["headers"]
   else:
     tmp = tmp0["data"]
+    
     tmp2 = tmp["playerInfo"]
     a = tmp2["towerFloorIndex"]
     b = tmp2["towerLevelIndex"]

@@ -5,7 +5,7 @@
   "index":"https://mo-genstar.apifox.cn/",
   "git":"https://git.moyanjdc.top/MoYan/gsapi",
   "log": {
-    "level":"INFO",
+    "level":"DEBUG",
     "dir":"log/"
   },
   "cookie":{

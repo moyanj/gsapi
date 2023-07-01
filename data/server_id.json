@@ -1,0 +1,10 @@
+{
+  "sr":{
+    "gf":"prod_gf_cn",
+    "qd":"prod_qd_cn",
+    "us":"prod_official_usa",
+    "eu":"prod_official_euro",
+    "ga":"prod_official_cht",
+    "as":"prod_official_asia"
+  }
+}

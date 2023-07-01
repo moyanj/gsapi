@@ -1,7 +1,7 @@
 from flask import Flask, request,redirect #导入Flask框架
-from var import conf,log, req_id
+from var import conf,log, req_id,conf_log
 from logging import getLogger #用于关闭Flask日志
-from views import tool,ys,admin #导入视图函数
+from views import tool,ys,admin,sr #导入视图函数
 req_num = 0
 #关闭flask日志
 flog = getLogger('werkzeug')
@@ -12,7 +12,13 @@ app = Flask(__name__)
 #注册蓝图
 app.register_blueprint(tool.app)
 app.register_blueprint(ys.app)
+app.register_blueprint(sr.app)
 app.register_blueprint(admin.app)
+
+if conf_log["level"] == "DEBUG":
+    mode = True
+else:
+    mode = False
 
 @app.before_request
 def before_request():
@@ -25,6 +31,7 @@ def before_request():
       ip = request.headers[head]
     req_method = request.method
     req_path = request.path
+    #输出日志
     log.info("---------------------------")
     log.info("请求IP：{}".format(ip))
     log.info("请求方法：{}".format(req_method))
@@ -39,13 +46,14 @@ def before_request():
 def index():
   return redirect(conf["index"], code=301)
 
+#GIT存储库
 @app.route("/git")
 def git():
   return redirect(conf["git"], code=301)
-
+#文档
 @app.route("/docs")
-def gti():
+def docs():
   return redirect(conf["index"], code=301)
-
-app.run(host=conf["host"], port=conf["port"], debug=False)
+if __name__ == '__main__':
+    app.run(host=conf["host"], port=conf["port"], debug=mode)
 
