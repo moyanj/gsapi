@@ -1,0 +1,58 @@
+site_name: 'GSAPI文档'
+site_author: '莫颜'
+site_description: 'API,查询,数据,练度,米哈游,原神,崩坏三,崩坏：星穹铁道,崩铁,'
+copyright: Copyright © 2023 MoYanStudio
+
+theme:
+    name: material
+    language: zh
+    custom_dir: res/
+markdown_extensions:
+    - admonition 
+    - footnotes  
+    - meta 
+    - pymdownx.caret  
+    - pymdownx.tilde  
+    - pymdownx.critic  
+    - pymdownx.details  
+    - pymdownx.inlinehilite  
+    - pymdownx.mark  
+    - pymdownx.smartsymbols  
+    - pymdownx.superfences  
+    - codehilite:   
+        guess_lang: false
+        linenums: true
+    - toc: 
+        permalink: true
+    - pymdownx.betterem:
+        smart_enable: all
+    - pymdownx.tasklist:
+        custom_checkbox: true
+nav:
+    - index.md
+    - build.md
+    - API:
+        - api/ys.md
+        - api/sr.md
+        - api/tool.md
+        - api/admin.md
+    - 配套项目:
+        - SP/img.md
+        - SP/ck.md
+    - development.md
+    - updatelog.md
+    - about.md
+plugins:
+    - search
+    - i18n:
+        default_language: zh
+        languages:
+            zh: 
+                name: 中文（简体）
+                site_name: GSAPI文档
+            en: 
+                name: English
+                site_name: GSAPI Documentation
+        nav_translations:
+            en:
+                配套项目: Supporting Project
