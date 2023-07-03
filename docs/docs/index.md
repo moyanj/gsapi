@@ -1,4 +1,6 @@
 # 主页
+{% import 'macro.html' as f %}
+{{f.header()}}
 !!! warning "警告"
     本API还处于开发阶段，请留意 [状态监视页面](https://service.moyanjdc.top/status/ms),以及官方QQ群(群号:769016444)
 ## 服务器地址

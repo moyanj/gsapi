@@ -1,19 +1,22 @@
-from flask import Flask, request,redirect #导入Flask框架
+from flask import Flask, request, redirect, make_response #导入Flask框架
 from var import conf,log, req_id,conf_log
 from logging import getLogger #用于关闭Flask日志
-from views import tool,ys,admin,sr #导入视图函数
+from views import tool,ys,dev,sr #导入视图函数
 req_num = 0
 #关闭flask日志
 flog = getLogger('werkzeug')
 flog.disabled = True
 #初始化Flask
 app = Flask(__name__)
-
+class g:
+    def __init__(self):
+        self.req_id = "dd"
+        
 #注册蓝图
 app.register_blueprint(tool.app)
 app.register_blueprint(ys.app)
 app.register_blueprint(sr.app)
-app.register_blueprint(admin.app)
+app.register_blueprint(dev.app)
 
 if conf_log["level"] == "DEBUG":
     mode = True
@@ -31,14 +34,21 @@ def before_request():
       ip = request.headers[head]
     req_method = request.method
     req_path = request.path
+    g.req_id = req_id(req_num)
     #输出日志
     log.info("---------------------------")
     log.info("请求IP：{}".format(ip))
     log.info("请求方法：{}".format(req_method))
     log.info("请求路径：{}".format(req_path))
-    log.info("请求ID：{}".format(req_id(req_num)))
+    log.info("请求ID：{}".format(g.req_id))
     
-
+@app.after_request
+def set_response_headers(response):
+    req_id = g.req_id
+    response.headers['GSAPI-Request-ID'] = req_id
+    # response.headers[]
+    # 添加更多的响应头设置
+    return response
   
   
 #主页
@@ -55,5 +65,5 @@ def git():
 def docs():
   return redirect(conf["index"], code=301)
 if __name__ == '__main__':
-    app.run(host=conf["host"], port=conf["port"], debug=mode)
+    app.run(host=conf["host"], port=int(conf["port"]), debug=mode)
 

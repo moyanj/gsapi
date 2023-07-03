@@ -108,7 +108,7 @@ def req_enka(uid):
     #打印日志
     log.info("Cache yes")
     #返回数据，返回头，状态码
-    return {"data": cache.get("ysenka_"+ uid), "headers": {"cache": "yes"}, "status": 200}
+    return {"data": cache.get("ysenka_"+ uid), "headers": {"GSAPI-Cache": "Yes","GSAPI-UID-Verify":True}, "status": 200}
   else:
     #打印日志
     log.info("Cache no")
@@ -119,7 +119,7 @@ def req_enka(uid):
     log.debug("Enka Status Code:{}".format(enka_return.status_code))
     if enka_return.status_code in [400,404,500,424,429,503]:
       log.error("ENKA Server Error")
-      return {"data": "ENKA Server Error", "headers": {"cache": "no"}, "status": 202}
+      return {"data": "ENKA Server Error", "headers": {"GSAPI-Cache": "Null","GSAPI-UID-Verify":True}, "status": 202}
     else:
       #解析json
       enka_data = json.loads(enka_return.text)
@@ -127,7 +127,7 @@ def req_enka(uid):
       #设置缓存
       cache.set("ysenka_"+ uid, enka_data, ttl=300)
       #返回数据，返回头，状态码
-      return {"data": enka_data, "headers": {"cache": "no"}, "status": 200}
+      return {"data": enka_data, "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":True}, "status": 200}
 
 #验证uid
 def verifyUid(uid):
@@ -147,7 +147,7 @@ def viewFun(request):
   uid = request.values.get("uid")
   #验证UID是否有效
   if verifyUid(uid) == "no":
-    return {"data":"Is not the correct UID","headers":{},"status":201}
+    return {"data":"Is not the correct UID","headers":{"GSAPI-UID-Verify":False},"status":201}
   else:
     return req_enka(uid)
     
@@ -162,7 +162,7 @@ def req_eli(uid):
     #打印日志
     log.info("Cache yes")
     #返回数据，返回头，状态码
-    return {"data": cache.get("sreli_"+uid), "headers": {"cache": "yes"}, "status": 200}
+    return {"data": cache.get("sreli_"+uid), "headers": {"GSAPI-Cache": "Yes","GSAPI-UID-Verify":None}, "status": 200}
   else:
     #打印日志
     log.info("Cache no")
@@ -173,7 +173,7 @@ def req_eli(uid):
         eli_return = r.get(url)
     except:
       log.error("ELi Server Error")
-      return {"data": "ELi Server Error", "headers": {"cache": "no"}, "status": 202}
+      return {"data": "ELi Server Error", "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":None}, "status": 202}
     else:
       log.debug("ELi Status Code:{}".format(eli_return.status_code))  
       #解析json
@@ -182,4 +182,4 @@ def req_eli(uid):
       #设置缓存
       cache.set("sreli_"+uid, eli_data, ttl=300)
       #返回数据，返回头，状态码
-      return {"data": eli_data, "headers": {"cache": "no"}, "status": 200}
+      return {"data": eli_data, "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":None}, "status": 200}

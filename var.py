@@ -3,12 +3,13 @@ import time
 import json
 import hashlib as hl
 
-f = open("config.json")
+f = open("data/config.json")
 conf = json.load(f)
 conf_ck = conf["cookie"]
 conf_log = conf["log"]
 conf_cache = conf["cache"]
 conf_chat = conf["chat"]
+conf_port = conf["port"]
 
 log = lib.Logger(level=conf_log["level"], log_dir=conf_log["dir"])
 #log.info("开始初始化缓存")

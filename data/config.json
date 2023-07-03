@@ -1,6 +1,6 @@
 {
   "host": "0.0.0.0",
-  "port": 6475,
+  "port": "6475",
   "CDN":"",
   "index":"https://doc.gsapi.moyanjdc.top/",
   "git":"https://git.moyanjdc.top/MoYan/gsapi",

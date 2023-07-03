@@ -1,7 +1,9 @@
 from flask import Flask, Blueprint, request
 from fun import viewFun
 app = Blueprint('ys', __name__, url_prefix='/ys')
-
+@app.route('/')
+def index():
+    return "This is the query API for Genshin Impact."
 @app.route("/all")
 def all():
     allData = viewFun(request)["data"]

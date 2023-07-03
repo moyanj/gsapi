@@ -70,3 +70,11 @@ def sign():
     tmp = req["data"]
     tmp2 = tmp["playerDetailInfo"]
     return tmp2["signature"], req["status"], req["headers"]
+    
+@app.route("/role")
+def role():
+    return "HelloWorld"
+
+@app.route("/role/<id>")
+def role_info(id):
+    return "HelloWorld"
