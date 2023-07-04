@@ -11,7 +11,8 @@ ENV PYTHONUNBUFFERED=1
 RUN pip install --no-cache-dir --upgrade -r requirements.txt && adduser -u 1145 --disabled-password --gecos "" gsapi && chown -R gsapi /gsapi
 #设置程序运行用户
 USER gsapi
+RUN flask init
 #开放6475端口
 EXPOSE 6475
 #设置启动命令
-CMD ["python","app.py"]
+CMD ["gunicorn","app:app"]
