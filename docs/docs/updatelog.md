@@ -15,3 +15,27 @@
     - 崩坏：星穹铁道的数据查询支持
 - 修改：
     - 优化代码结构
+    
+## v1.0.3
+- 更新时间：2023年7月4日([fa5bd28](https://github.com/moyanj/gsapi/commit/fa5bd28ca896e956b28359cad38813c5d6027aac))
+
+- Docker镜像：无
+- 增加：
+    - 无
+- 修改：
+    - 将大部分配置迁移至SQLite数据。
+    - 适配 Gunicorn 的生产环境。
+    - 修改 Dockerfile 以优化 Docker 镜像。
+- 注：此次提交没有 Tag。
+
+## v1.0.4
+- 更新时间：2023年7月4日([d004bf8](https://github.com/moyanj/gsapi/commit/d004bf86353f05e9ac9360888e0e3e51b94c38b7))
+- Docker镜像：无
+- 增加：
+    - 无
+- 修改：
+    - 修复Dockerfile无法build的bug
+- 注：此次提交没有 Tag。
+
+    
+    

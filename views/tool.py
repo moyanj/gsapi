@@ -28,7 +28,7 @@ def img_ys():
   imgSource_index = ran.randint(0,imgSource_num-1)
   print(imgSource_index)
   imgSource_data = img_source[imgSource_index]
-  if imgSource_data["type"] == "git":
+  if imgSource_data["type"] == "ftp":
     sourceConfig_url = imgSource_data["url"]+"/grc.json"
     sourceConfig = json.loads(r.get(sourceConfig_url).text)
     imgNum = sourceConfig["len"]

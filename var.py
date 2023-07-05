@@ -37,6 +37,18 @@ def req_id(req_num):
   sha1.update(tmp3.encode("utf-8"))
   return sha1.hexdigest() 
   
-#设置BosClient的Host，Access Key ID和Secret Access Key
-f = open("data/img_source.json")
-img_source = json.load(f)["data"]
+
+cursor.execute('SELECT * FROM imageRes;')
+rows = cursor.fetchall()
+img_source = []
+# 遍历数据
+for row in rows:
+    # 每行数据以元组形式返回。
+    type = row[0]
+    url = row[1]
+    tmp = {
+        "url":url,
+        "type":type
+    }
+    # 进行相应的操作，这里仅打印出数据
+    img_source.append(tmp)

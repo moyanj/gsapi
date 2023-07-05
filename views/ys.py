@@ -6,25 +6,29 @@ def index():
     return "This is the query API for Genshin Impact."
 @app.route("/all")
 def all():
-    allData = viewFun(request)["data"]
-    tmp2 = allData["playerInfo"]
-    floor = tmp2["towerFloorIndex"]
-    room = tmp2["towerLevelIndex"]
-    abyss_str = "{}-{}".format(floor, room)
-
-    returnData = {
-        "nickName":allData["playerInfo"]["nickname"],
-        "level":allData["playerInfo"]["level"],
-        "WL":allData["playerInfo"]["worldLevel"],
-        "sign":allData["playerInfo"]["signature"],
-        "NOA":allData["playerInfo"]["finishAchievementNum"],
-        "abyss":{
-            "string":abyss_str,
-            "floor":floor,
-            "room":room
+    tmp3 = viewFun(request)
+    if tmp3["status"] == 201 or tmp3["status"] == 202:
+        return tmp3["data"], tmp3["status"], tmp3["headers"]
+    else:
+        allData = tmp3["data"]
+        tmp2 = allData["playerInfo"]
+        floor = tmp2["towerFloorIndex"]
+        room = tmp2["towerLevelIndex"]
+        abyss_str = "{}-{}".format(floor, room)
+    
+        returnData = {
+            "nickName":allData["playerInfo"]["nickname"],
+            "level":allData["playerInfo"]["level"],
+            "WL":allData["playerInfo"]["worldLevel"],
+            "sign":allData["playerInfo"]["signature"],
+            "NOA":allData["playerInfo"]["finishAchievementNum"],
+            "abyss":{
+                "string":abyss_str,
+                "floor":floor,
+                "room":room
+            }
         }
-    }
-    return returnData
+        return returnData,tmp3["status"],tmp3["headers"]
 #获取玩家昵称
 @app.route("/name")
 def uid():
