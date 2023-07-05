@@ -10,7 +10,7 @@
     
 ## v1.0.2
 - 更新时间：2023年7月1日([720291c](https://github.com/moyanj/gsapi/commit/720291c5f216d24db604993525f18abb7565f224))
-- Docker镜像：moyanjdc/gsapi:v1.0.2
+- Docker镜像：moyanjdc/gsapi:1.0.2
 - 增加：
     - 崩坏：星穹铁道的数据查询支持
 - 修改：
@@ -36,6 +36,15 @@
 - 修改：
     - 修复Dockerfile无法build的bug
 - 注：此次提交没有 Tag。
+
+## v1.1.0
+- 更新时间：2023年7月1日([de0b222](https://github.com/moyanj/gsapi/commit/de0b222ac53034b829b5aa50d6d6464c30fe61a1))
+- Docker镜像：moyanjdc/gsapi:1.1.0
+- 增加：
+    - 无
+- 修改：
+    - 修复无法运行的bug。
+    
 
     
     
