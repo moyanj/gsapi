@@ -4,14 +4,12 @@ from logging import getLogger #用于关闭Flask日志
 from views import tool,ys,dev,sr #导入视图函数
 import cli
 req_num = 0
+req_ids = ""
 #关闭flask日志
 flog = getLogger('werkzeug')
 flog.disabled = True
 #初始化Flask
 app = Flask(__name__)
-class g:
-    def __init__(self):
-        self.req_id = "dd"
 #注册蓝图
 app.register_blueprint(tool.app)
 app.register_blueprint(ys.app)
@@ -26,6 +24,7 @@ else:
 @app.before_request
 def before_request():
     global req_num
+    global req_ids
     req_num = req_num+1
     if conf["CDN"] == "":
       ip = request.remote_addr
@@ -34,17 +33,18 @@ def before_request():
       ip = request.headers[head]
     req_method = request.method
     req_path = request.path
-    g.req_id = req_id(req_num)
+    req_ids = req_id(req_num)
     #输出日志
     log.info("---------------------------")
     log.info("请求IP：{}".format(ip))
     log.info("请求方法：{}".format(req_method))
     log.info("请求路径：{}".format(req_path))
-    log.info("请求ID：{}".format(g.req_id))
+    log.info("请求ID：{}".format(req_ids))
     
 @app.after_request
 def set_response_headers(response):
-    req_id = g.req_id
+    global req_ids
+    req_id = req_ids
     response.headers['GSAPI-Request-ID'] = req_id
     # response.headers[]
     # 添加更多的响应头设置

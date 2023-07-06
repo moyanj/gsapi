@@ -1,13 +1,12 @@
 # 主页
-{% import 'macro.html' as f %}
-{{f.header()}}
+
 !!! warning "警告"
     本API还处于开发阶段，请留意 [状态监视页面](https://service.moyanjdc.top/status/ms),以及官方QQ群(群号:769016444)
 ## 服务器地址
    
-| 名称 | URL | HTTPS |
-|: ----------- |: ----------- |: ----------- :
-| 官方 | api.gsapi.moyanjdc.top | 是 |
+| 名称 | URL | HTTPS | 状态 |
+|: ----------- |: ----------- |: ----------- |: -------- :
+| 官方 | gsapi.moyanjdc.top | 是 | 失败 |
 
 ## 限制
 1.每ip每秒最多50次
