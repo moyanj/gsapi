@@ -1,9 +1,4 @@
 from flask import Blueprint
-from var import log
-import os
-import platform
-import secrets
-import json
 import click
 import sqlite3
 

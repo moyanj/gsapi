@@ -13,9 +13,8 @@ def ysyy():
   ys = json.load(f)
   yyalldata = ys["data"]
   yynum = len(yyalldata)
-  log.debug(yynum)
   yyindex = ran.randint(0,yynum-1)
-  log.debug(yyindex)
+  log.debug("随机到的条目ID是：{}".format(yyindex))
   yydata = yyalldata[yyindex]
   log.debug(yydata)
   yydata["id"] = yyindex

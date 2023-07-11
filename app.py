@@ -33,18 +33,20 @@ def before_request():
       ip = request.headers[head]
     req_method = request.method
     req_path = request.path
-    req_ids = req_id(req_num)
+    UA = request.headers.get("User-Agent")
     #输出日志
     log.info("---------------------------")
     log.info("请求IP：{}".format(ip))
     log.info("请求方法：{}".format(req_method))
     log.info("请求路径：{}".format(req_path))
-    log.info("请求ID：{}".format(req_ids))
-    
+    log.info("请求ID：{}".format(req_id(req_num)))
+    log.info("请求UA：{}".format(UA))
+    log.info("第{}次请求".format(req_num))
 @app.after_request
 def set_response_headers(response):
     global req_ids
     req_id = req_ids
+    response.headers['GSAPI-Version'] = conf["version"]
     response.headers['GSAPI-Request-ID'] = req_id
     # response.headers[]
     # 添加更多的响应头设置

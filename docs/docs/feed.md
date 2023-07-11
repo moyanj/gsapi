@@ -46,7 +46,6 @@
 </style>
 <div id="mo-feedback-form">
     <h1 class="mo-title">用户反馈</h1>
-    <form action="https://gsapi.moyanjdc.top/feed.php" method="get">
             <label for="name">您的姓名：</label>
             <input type="text" id="name" name="name" class="mo-input" required><br><br>
             
@@ -56,6 +55,15 @@
             <label for="message">反馈信息：</label><br>
             <textarea id="message" name="message" class="mo-textarea" required></textarea><br><br>
             
-            <input type="submit" value="提交反馈" class="mo-submit-btn">
-        </form>
-    </div>
+            <input type="button" id = "mo-upload"value="提交反馈" class="mo-submit-btn">
+        <script>
+            function event1(){
+                var name = $("#name").val() 
+                var mail = $("#email").val()
+                var ms = $("#message").val()
+	            $.get("https://gsapi.moyanjdc.top/feed.php",{"name":name,"email":mail,"message":ms})
+	            alert("提交成功")
+            }
+            $("#mo-upload").bind("click",event1);
+        </script>
+</div>

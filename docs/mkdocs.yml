@@ -7,6 +7,7 @@ theme:
     name: material
     language: zh
     custom_dir: res/
+    after: 2
 markdown_extensions:
     - admonition 
     - footnotes  
@@ -44,15 +45,3 @@ nav:
     - about.md
 plugins:
     - search
-    - i18n:
-        default_language: zh
-        languages:
-            zh: 
-                name: 中文（简体）
-                site_name: GSAPI文档
-            en: 
-                name: English
-                site_name: GSAPI Documentation
-        nav_translations:
-            en:
-                配套项目: Supporting Project

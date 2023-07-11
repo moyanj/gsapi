@@ -98,7 +98,7 @@ class Logger:
             self._write(f'CRITICAL - {msg}')
 
 def req_enka(uid):
-  from var import log,cache
+  from var import log,cache,conf
   #设置ENKA API的URL
   url = "https://enka.network/api/uid/{}/".format(uid)
   #获取所有缓存
@@ -106,26 +106,27 @@ def req_enka(uid):
   #判断UID是否被缓存
   if "ysenka_"+uid in cache_data:
     #打印日志
-    log.info("Cache yes")
+    log.info("缓存存在。")
     #返回数据，返回头，状态码
     return {"data": cache.get("ysenka_"+ uid), "headers": {"GSAPI-Cache": "Yes","GSAPI-UID-Verify":True}, "status": 200}
   else:
     #打印日志
-    log.info("Cache no")
+    log.info("缓存不存在。")
     #删除以前的缓存
     cache.delete(uid)
     #请求ENKA服务器
     enka_return = r.get(url)
-    log.debug("Enka Status Code:{}".format(enka_return.status_code))
+    log.debug("Enka 状态码:{}".format(enka_return.status_code))
     if enka_return.status_code in [400,404,500,424,429,503]:
-      log.error("ENKA Server Error")
-      return {"data": "ENKA Server Error", "headers": {"GSAPI-Cache": "Null","GSAPI-UID-Verify":True}, "status": 202}
+      log.error("ENKA 服务器错误")
+      return {"data": "ENKA Server Error", "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":True}, "status": 202}
     else:
       #解析json
       enka_data = json.loads(enka_return.text)
-    
+      cache_key = "ysenka_"+ uid
+      log.debug("缓存的key是：{}".format(cache_key))
       #设置缓存
-      cache.set("ysenka_"+ uid, enka_data, ttl=300)
+      cache.set(cache_key, enka_data, ttl=int(conf["cache.ttl"]))
       #返回数据，返回头，状态码
       return {"data": enka_data, "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":True}, "status": 200}
 
@@ -136,7 +137,7 @@ def verifyUid(uid):
   regular = re.match("^[^34]\d{8}$",uid)
   #判断返回结果
   if regular == None:
-    log.warning("Incorrect UID for user request query")
+    log.warning("用户本次查询的UID不符合格式")
     return "no"
   else:
     return "yes"
@@ -160,26 +161,27 @@ def req_eli(uid):
   #判断UID是否被缓存
   if "sreli_"+uid in cache_data:
     #打印日志
-    log.info("Cache yes")
+    llog.info("缓存存在。")
     #返回数据，返回头，状态码
     return {"data": cache.get("sreli_"+uid), "headers": {"GSAPI-Cache": "Yes","GSAPI-UID-Verify":None}, "status": 200}
   else:
     #打印日志
-    log.info("Cache no")
+    log.info("缓存不存在。")
     #删除以前的缓存
     cache.delete(uid)
     #请求鳄梨API服务器
     try:
         eli_return = r.get(url)
     except:
-      log.error("ELi Server Error")
+      log.error("鳄梨服务器错误")
       return {"data": "ELi Server Error", "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":None}, "status": 202}
     else:
-      log.debug("ELi Status Code:{}".format(eli_return.status_code))  
+      log.debug("鳄梨服务器状态码:{}".format(eli_return.status_code))  
       #解析json
       eli_data = json.loads(eli_return.text)
-    
-      #设置缓存
-      cache.set("sreli_"+uid, eli_data, ttl=300)
+      cache_key = "sreli_"+uid
+      log.debug("缓存key:{}".format(cache_key))
+      #设置缓存"sreli_"+uid"sreli_"+uid
+      cache.set(cache_key, eli_data, ttl=int(conf["cache.ttl"]))
       #返回数据，返回头，状态码
       return {"data": eli_data, "headers": {"GSAPI-Cache": "No","GSAPI-UID-Verify":None}, "status": 200}

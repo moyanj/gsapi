@@ -1,17 +1,47 @@
 {% extends "base.html" %}
 {% block fonts %}
-  {% if config.theme.font != false %}
-    {% set text = config.theme.font.text | d("Roboto", true) %}
-    {% set code = config.theme.font.code | d("Roboto Mono", true) %}
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.font.im/css?family={{
-        text | replace(' ', '+') + ':300,300i,400,400i,700,700i%7C' +
-        code | replace(' ', '+') + ':400,400i,700,700i'
-      }}&display=fallback">
-    <style>:root{--md-text-font:"{{ text }}";--md-code-font:"{{ code }}"}</style>
+    {% if config.theme.font != false %}
+        {% set text = config.theme.font.text | d("Roboto", true) %}
+        {% set code = config.theme.font.code | d("Roboto Mono", true) %}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.font.im/css?family={{
+            text | replace(' ', '+') + ':300,300i,400,400i,700,700i%7C' +
+            code | replace(' ', '+') + ':400,400i,700,700i'
+            }}&display=fallback">
+        <style>:root{--md-text-font:"{{ text }}";--md-code-font:"{{ code }}"}</style>
   {% endif %}
 {% endblock %}
 
 {% block libs %}
-  <script src="{{ base_url }}/assets/javascripts/jquery.min.js"></script>
+    <script src="{{ base_url }}/assets/javascripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ base_url }}/assets/stylesheets/moyan.css">
+{% endblock %}
+
+{% block site_meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="application-name" content="{{ config.site_name }}">
+    <meta name="apple-mobile-web-app-title" content="{{ config.site_name }}">
+    <meta name="revisit-after" content="{{ config.theme.after }} days">
+    {% if page.meta and page.meta.description %}
+        <meta name="description" content="{{ page.meta.description }}">
+    {% elif config.site_description %}
+        <meta name="description" content="{{ config.site_description }}">
+    {% endif %}
+    {% if page.meta and page.meta.author %}
+        <meta name="author" content="{{ page.meta.author }}">
+    {% elif config.site_author %}
+        <meta name="author" content="{{ config.site_author }}">
+    {% endif %}
+    {% if page.canonical_url %}
+        <link rel="canonical" href="{{ page.canonical_url }}">
+    {% endif %}
+    {% if page.previous_page %}
+        <link rel="prev" href="{{ page.previous_page.url | url }}">
+    {% endif %}
+    {% if page.next_page %}
+        <link rel="next" href="{{ page.next_page.url | url }}">
+    {% endif %}
+    <link rel="icon" href="{{ config.theme.favicon | url }}">
+    <meta name="generator" content="material for mkdocs 莫颜修改版">
 {% endblock %}
